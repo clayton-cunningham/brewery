@@ -1,11 +1,11 @@
-import { ingredients, Recipe, RecipePossibility } from "../../../assets/resources";
+import { Ingredient, ingredients, Recipe, RecipePossibility } from "../../../assets/resources";
 import "./Recipes.less";
 import { Row } from "../../generic/Row";
 import { RowColumnAdaptive } from "../../generic/RowColumnAdaptive";
 import { Column } from "../../generic/Column";
 import { Pill } from "../../generic/Pill";
 
-export const RecipeOptions = (props: {recipes: Recipe[], title: string, titleIngredients: string[], possible?: RecipePossibility, possibleIngredients: string[]}) => {
+export const RecipeOptions = (props: {recipes: Recipe[], title: string, titleIngredients: Ingredient[], possible?: RecipePossibility, possibleIngredients: Ingredient[]}) => {
 
     const {title, recipes, titleIngredients, possible, possibleIngredients} = props;
 
@@ -19,7 +19,7 @@ export const RecipeOptions = (props: {recipes: Recipe[], title: string, titleIng
             if (iCount != undefined && iCount != "0") {
                 currIngredients.push(
                     <Row key={ingredient.name + "_ingredient-count"} className="ingredient-display">
-                        {possibleIngredients.filter(i => i == ingredient.name).length == 0 && (
+                        {possibleIngredients.filter(i => i.key == ingredient.key).length == 0 && (
                             <Pill className="red missing-ingredient-text"/>
                         )}
                         <p className="ingredient-count">{iCount}</p>
@@ -37,7 +37,7 @@ export const RecipeOptions = (props: {recipes: Recipe[], title: string, titleIng
             <Column className="recipe-list-title">
                 <h3>{title}</h3>
                 <Row>
-                    {ingredients.filter(i => titleIngredients.find(pI => pI == i.name)).map(i =>
+                    {titleIngredients.map(i =>
                         <img key={i.name + "_ingredient-obtainable"} className="img-xs" src={i.uri} />
                     )}
                 </Row>
@@ -62,23 +62,6 @@ export const RecipeOptions = (props: {recipes: Recipe[], title: string, titleIng
                     </RowColumnAdaptive>
                 )}
             </Row>
-            {/* {recipes.length > 0 &&
-                (<Grid
-                    cells={[
-                        ...recipes.map(recipe => 
-                            [
-                                <div>
-                                    <img src={"./recipes/" + recipe.Recipe.toLowerCase().split(" ").join("") + ".png"} />
-                                </div>,
-                                <p className="recipe-name">{recipe.Recipe}</p>,
-                                <Row className="ingredient-list">
-                                    {getIngredients(recipe)}
-                                </Row>,
-                            ]
-                        ).reduce((acc, curr) => acc.concat(curr))
-                    ]}
-                />)
-            } */}
         </div>
     )
 }

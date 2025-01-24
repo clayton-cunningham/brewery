@@ -513,29 +513,31 @@ export const enum RecipePossibility {
     Other
 }
 
-export type Ingredients = {
+export type Ingredient = {
+  key?: number | undefined,
   name: string,
-  uri?: string | undefined,
+  uri: string,
+  active?: boolean | undefined
 }
 
-export const ingredients: Ingredients[] = [
-  {name: "Apple", uri: "./ingredients/fancyapple.png"},
-  {name: "Honey", uri: "./ingredients/honey.png"},
-  {name: "Milk", uri: "./ingredients/moomoomilk.png"},
-  {name: "Ginger", uri: "./ingredients/warmingginger.png"},
-  {name: "Oil", uri: "./ingredients/pureoil.png"},
-  {name: "Cacao", uri: "./ingredients/soothingcacao.png"},
-  {name: "Egg", uri: "./ingredients/fancyegg.png"},
-  {name: "Soybeans", uri: "./ingredients/greengrasssoybeans.png"},
-  {name: "Potato", uri: "./ingredients/softpotato.png"},
-  {name: "Tomato", uri: "./ingredients/snoozytomato.png"},
-  {name: "Mushroom", uri: "./ingredients/tastymushroom.png"},
-  {name: "Tail", uri: "./ingredients/slowpoketail.png"},
-  {name: "Herb", uri: "./ingredients/fieryherb.png"},
-  {name: "Leek", uri: "./ingredients/largeleek.png"},
-  {name: "Corn", uri: "./ingredients/greengrasscorn.png"},
-  {name: "Sausage", uri: "./ingredients/beansausage.png"},
-  {name: "Coffee", uri: "./ingredients/rousingcoffee.png"},
+export const ingredients: Ingredient[] = [
+  {key: 0, name: "Apple", uri: "./ingredients/fancyapple.png"},
+  {key: 1, name: "Honey", uri: "./ingredients/honey.png"},
+  {key: 2, name: "Milk", uri: "./ingredients/moomoomilk.png"},
+  {key: 3, name: "Ginger", uri: "./ingredients/warmingginger.png"},
+  {key: 4, name: "Oil", uri: "./ingredients/pureoil.png"},
+  {key: 5, name: "Cacao", uri: "./ingredients/soothingcacao.png"},
+  {key: 6, name: "Egg", uri: "./ingredients/fancyegg.png"},
+  {key: 7, name: "Soybeans", uri: "./ingredients/greengrasssoybeans.png"},
+  {key: 8, name: "Potato", uri: "./ingredients/softpotato.png"},
+  {key: 9, name: "Tomato", uri: "./ingredients/snoozytomato.png"},
+  {key: 10, name: "Mushroom", uri: "./ingredients/tastymushroom.png"},
+  {key: 11, name: "Tail", uri: "./ingredients/slowpoketail.png"},
+  {key: 12, name: "Herb", uri: "./ingredients/fieryherb.png"},
+  {key: 13, name: "Leek", uri: "./ingredients/largeleek.png"},
+  {key: 14, name: "Corn", uri: "./ingredients/greengrasscorn.png"},
+  {key: 15, name: "Sausage", uri: "./ingredients/beansausage.png"},
+  {key: 16, name: "Coffee", uri: "./ingredients/rousingcoffee.png"},
 ]
 
 export const recipeTypes = [
