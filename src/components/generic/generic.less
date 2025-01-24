@@ -1,0 +1,226 @@
+
+.column {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    // justify-content: flex-end;
+    align-items: center;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.row-column-adaptive {
+    @media only screen and (min-width: 900px) {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    
+    @media only screen and (max-width: 900px) {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        align-items: center;
+    }
+}
+
+.left-align {
+    width: 100%;
+    justify-content: flex-start;
+    position: relative;
+    left: 0%;
+
+    @media only screen and (max-width: 900px) {
+        justify-content: center;
+    }
+}
+
+.dynamic-row-list {
+    display: flex;
+    justify-content: flex-start;
+
+    .row {
+        align-items: baseline;
+        justify-content: flex-start;
+    }
+}
+
+.dynamic-row {
+    display: flex;
+    justify-content: center;
+
+    .row {
+        align-items: flex-start;
+
+        @media only screen and (min-width: 600px) and (max-width: 1250px) {
+            width: 610px;
+        }
+    }
+    
+    .dynamic-row-cell {
+        width: 250px;
+        margin: 20px;
+    }
+}
+
+.section {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    padding: 30px;
+}
+
+.section-align {
+    @media only screen and (min-width: 900px) {
+        position: relative;
+        left: 10%;
+        width: 90vw;
+        justify-content: flex-start;
+    }
+
+    .section-align-body {
+        padding-left: 5%;
+    }
+
+    .column {
+        width: 100%;
+        align-items: baseline;
+    }
+}
+
+.page-header {
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 15% 30% 55%;
+    padding: 10px;
+  
+    .grid-item {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+}
+
+.grid-with-logos {
+    grid-template-columns: auto auto;
+    column-gap: 10%;
+
+    @media only screen and (max-width: 900px) {
+        grid-template-columns: 100%;
+    }
+
+    .grid-item {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+}
+
+.dropdown {
+    position: relative;
+    .column {
+        position: absolute;
+        top: 48px;
+        left: 0px;
+        background-color: rgb(176, 176, 176);
+        border: 1px solid rgb(197, 197, 197);
+        border-radius: 0.25rem;
+        z-index: 1;
+
+        div {
+            min-width: max-content;
+            width: 100%;
+            opacity: 1;
+        }
+        div:hover {
+            background-color: grey;
+        }
+    }
+}
+
+.mobile-width-90 { 
+    @media only screen and (max-width: 900px) {
+        width: 90%; 
+    }
+}
+
+.pill {
+    height: 100%;
+    width: 200%;
+    position: absolute;
+    border-radius: 16px;
+    z-index: -1;
+    transition: .5s;
+}
+
+.vertical-pill {
+    height: 200%;
+    width: 100%;
+}
+
+.close-button {
+    position: absolute;
+    height: 25px;
+    width: 25px;
+    top: 0;
+    right: 0px;
+    transition: .5s;
+    background-color: white;
+    border-radius: 100%;
+}
+
+.close-background {
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    left: 0;
+}
+
+.close-button:hover {
+    background-color: grey;
+}
+
+.green { background-color: green; }
+.grey { background-color: darkgray; }
+.red { background-color: red; }
+
+.left-0 { left: -200%, }
+.left-1 { left: -166%, }
+.left-2 { left: -133%, }
+.left-3 { left: -100%, }
+
+.right-0 { left: 100%, }
+.right-1 { left: 66%, }
+
+.down-0 { top: 100%, }
+.down-1 { top: 0%, }
+
+.flex-1 { flex: 1;}
+.flex-2 { flex: 2;}
+.flex-3 { flex: 3;}
+.flex-4 { flex: 4;}
+.flex-5 { flex: 5;}
+.flex-6 { flex: 6;}
+
+.hover-highlight {
+    border-radius: 100%;
+    transition: .5s;
+}
+
+.hover-highlight:hover {
+    background-color: darkgreen;
+}
