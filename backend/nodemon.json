@@ -1,0 +1,10 @@
+{
+    "env": {
+        "DB_USER": "testuser02",
+        "DB_PASSWORD": "HSEwaMuERZ33iyKs",
+        "DB_NAME": "ingredients",
+        "CLUSTER_NAME": "fullstackcluster",
+        "APP_NAME": "Fullstackcluster",
+        "JWT_KEY": "gerudoSecretCodeDiamond"
+    }
+}
