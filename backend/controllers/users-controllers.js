@@ -122,7 +122,7 @@ const userSignup = async (req, res, next) => {
         return next (error);
     }
 
-    res.status(201).json({ userId: createdUser.id, email: createdUser.email, token: token });
+    res.status(201).json({ userId: createdUser.id, userName: createdUser.name, email: createdUser.email, token: token });
 }
 
 const userLogin = async (req, res, next) => {
@@ -182,7 +182,7 @@ const userLogin = async (req, res, next) => {
         return next (error);
     }
 
-    res.status(200).json({ userId: user.id, email: user.email, token: token, message: `Logged into user ${user.name}`});
+    res.status(200).json({ userId: user.id, userName: user.name, email: user.email, token: token, message: `Logged into user ${user.name}`});
 }
 
 exports.getUsers = getUsers;
