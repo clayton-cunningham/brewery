@@ -90,8 +90,6 @@ const userSignup = async (req, res, next) => {
         name,
         email,
         password: hashedPassword,
-        ingredients: [],
-        recipes: [],
     })
 
     try {

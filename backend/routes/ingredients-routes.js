@@ -7,6 +7,8 @@ const checkAuth = require('../middleware/check-auth');
 
 const router = express.Router();
 
+// Note - all of this is currently unused and untested (in case it looks weird)
+
 router.get("/:pid", ingredientsControllers.getIngredientById);
 router.get("/user/:uid", ingredientsControllers.getIngredientsByUserId);
 
