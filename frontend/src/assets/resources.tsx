@@ -60,7 +60,7 @@ export const enum RecipePossibility {
 }
 
 export type Ingredient = {
-  key?: number | undefined,
+  key: number,
   name: string,
   uri: string,
   active?: boolean | undefined

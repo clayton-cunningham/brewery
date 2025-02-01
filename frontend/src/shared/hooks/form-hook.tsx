@@ -1,6 +1,6 @@
 import { Reducer, useCallback, useReducer } from 'react';
 
-type State = { value: string, isValid: boolean };
+type State = { value: string | number, isValid: boolean };
 type Inputs = {[key: string] : State};
 type Action = { inputId: string, type: string, inputs: Inputs, formIsValid: boolean }
 

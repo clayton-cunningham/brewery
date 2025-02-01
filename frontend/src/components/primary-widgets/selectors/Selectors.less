@@ -33,8 +33,12 @@
 
     .selector-result-list {
         overflow-y: auto;
-        height: 25vh;
+        height: 30vh;
         align-items: flex-start;
+
+        @media only screen and (max-width: 900px) {
+            height: 40vh;
+        }
 
         .background-container {
             border-radius: 25px;
@@ -49,4 +53,8 @@
         top: 0;
         left: 0;
     }
+}
+
+.ingredient-selector-number-input {
+    width: 30px;
 }
