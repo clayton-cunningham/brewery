@@ -8,12 +8,12 @@ import { Row } from "../../generic/Row";
 
 export const IngredientSelector = (props: 
     {ingredient: Ingredient, context: AppContext,
-        // mainAction: (source: Ingredient) => void
+        toggleIngredient: (source: Ingredient, active: boolean) => void
         saveHandler: (ingredientId: number, count: number) => void,
         initCount?: number | undefined
     }) => {
 
-    const {ingredient, context, saveHandler, initCount} = props;
+    const {ingredient, context, toggleIngredient, saveHandler, initCount} = props;
 
     const [formState, inputHandler] = useForm(
         {
@@ -28,6 +28,7 @@ export const IngredientSelector = (props:
     var ingredientState = context.selectedIngredients.find(i => i.name == ingredient.name);
 
     const saveChange = (value: number) => {
+        toggleIngredient(ingredient, value > 0);
         inputHandler("count", value, true);
         saveHandler(ingredient.key, value);
     };

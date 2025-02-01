@@ -12,7 +12,7 @@ import MainNavigation from './components/navigation/MainNavigation';
 
 export type AppContext = {
   selectedIngredients: Ingredient[],
-  toggleIngredient: (source: Ingredient) => void,
+  toggleIngredient: (source: Ingredient, active: boolean) => void,
 }
 
 function App() {
@@ -20,7 +20,7 @@ function App() {
   const { userId, userName, token, login, logout } = useAuth();
   const [selectedIngredients, setSelectedIngredients] = useState<Ingredient[]>(ingredients);
 
-  const toggleIngredient = (source: Ingredient) => {
+  const toggleIngredient = (source: Ingredient, active: boolean) => {
       const index = selectedIngredients.findIndex(i => i.key == source.key);
       if (index == -1) {
         throw new Error("Ingredient not found!");
@@ -28,7 +28,7 @@ function App() {
 
       // Update the stored value
       var sI = selectedIngredients;
-      sI[index].active = !sI[index].active;
+      sI[index].active = active;
       setSelectedIngredients([...sI]);
   }
   

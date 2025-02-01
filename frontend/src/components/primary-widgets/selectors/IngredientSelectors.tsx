@@ -77,7 +77,7 @@ export const IngredientSelectors = (props: {context: AppContext}) => {
                                         <IngredientSelector
                                             context={context}
                                             ingredient={i}
-                                            // mainAction={(ingredient: Ingredient) => context.toggleIngredient(ingredient)}
+                                            toggleIngredient={context.toggleIngredient}
                                             saveHandler={inventorySubmitHandler}
                                             initCount={loadedInventory.find(lI=> lI.ingredientId == i.key)?.count}
                                         />
