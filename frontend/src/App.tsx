@@ -1,36 +1,20 @@
-import { Suspense, useState } from 'react';
+import { Suspense } from 'react';
 import './App.css'
 import { Column } from './components/generic/Column'
 import { MainPage } from './components/primary-widgets/main-page/MainPage'
-import { Ingredient, ingredients } from './assets/resources';
 import { Auth } from './components/primary-widgets/auth/Auth'
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import { AuthContext } from './shared/context/auth-context';
 import { useAuth } from './shared/hooks/auth-hook';
 import LoadingSpinner from './components/generic/newer/LoadingSpinner';
 import MainNavigation from './components/navigation/MainNavigation';
-
-export type AppContext = {
-  selectedIngredients: Ingredient[],
-  toggleIngredient: (source: Ingredient, active: boolean) => void,
-}
+import { InventoryContext } from './shared/context/inventory-context';
+import { initInventory } from './shared/hooks/inventory-hook';
 
 function App() {
 
   const { userId, userName, token, login, logout } = useAuth();
-  const [selectedIngredients, setSelectedIngredients] = useState<Ingredient[]>(ingredients);
-
-  const toggleIngredient = (source: Ingredient, active: boolean) => {
-      const index = selectedIngredients.findIndex(i => i.key == source.key);
-      if (index == -1) {
-        throw new Error("Ingredient not found!");
-      }
-
-      // Update the stored value
-      var sI = selectedIngredients;
-      sI[index].active = active;
-      setSelectedIngredients([...sI]);
-  }
+  const { selectedIngredients, getInventory, inventoryUpdateIngredient } = initInventory();
   
   let routes;
 
@@ -38,10 +22,10 @@ function App() {
     routes = (
       <Routes>
         <Route path="/" element={
-          <MainPage context={{selectedIngredients, toggleIngredient}}/>
+          <MainPage />
         }/>
         <Route path="*" element={
-          <MainPage context={{selectedIngredients, toggleIngredient}}/>
+          <MainPage />
         }/>
       </Routes>
     )
@@ -49,13 +33,13 @@ function App() {
     routes = (
       <Routes>
         <Route path="/" element={
-          <MainPage context={{selectedIngredients, toggleIngredient}}/>
+          <MainPage />
         }/>
         <Route path="/auth" element={
           <Auth />
         }/>
         <Route path="*" element={
-          <MainPage context={{selectedIngredients, toggleIngredient}}/>
+          <MainPage />
         }/>
       </Routes>
     )
@@ -64,20 +48,22 @@ function App() {
   return (
     <>
       <AuthContext.Provider value={{isLoggedIn: !!token, token: token, userId: userId, userName: userName, login: login, logout: logout}}>
-        <BrowserRouter>
-          <Column>
-            <MainNavigation />
-            <main>
-              <Suspense fallback={
-                <div className='center'>
-                  <LoadingSpinner />
-                </div>
-              }>
-                {routes}
-              </Suspense>
-            </main>
-          </Column>
-        </BrowserRouter>
+        <InventoryContext.Provider value={({ingredients: selectedIngredients, inventoryUpdateIngredient, getInventory})}>
+          <BrowserRouter>
+            <Column>
+              <MainNavigation />
+              <main>
+                <Suspense fallback={
+                  <div className='center'>
+                    <LoadingSpinner />
+                  </div>
+                }>
+                  {routes}
+                </Suspense>
+              </main>
+            </Column>
+          </BrowserRouter>
+        </InventoryContext.Provider>
       </AuthContext.Provider>
     </>
   )

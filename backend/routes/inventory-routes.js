@@ -31,8 +31,8 @@ router.patch(
                 if (typeof item.count !== 'number') {
                     throw new Error('Property count must be a number');
                 }
-                if (typeof item.ingredientId !== 'number') {
-                    throw new Error('Property ingredientId must be a number');
+                if (typeof item.ingredientId !== 'string') {
+                    throw new Error('Property ingredientId must be a string');
                 }
 
                 // Check for uniqueness of "slot"

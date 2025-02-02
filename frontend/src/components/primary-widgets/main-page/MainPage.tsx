@@ -1,25 +1,28 @@
 import { PageSection } from "../../generic/PageSection";
 import { Recipes } from "../recipe-options/Recipes";
-import { AppContext } from "../../../App";
 import "./MainPage.less"
 import { Column } from "../../generic/Column";
 import { IngredientSelectors } from "../selectors/IngredientSelectors";
+import { useContext, useEffect } from "react";
+import { AuthContext } from "../../../shared/context/auth-context";
+import { InventoryContext } from "../../../shared/context/inventory-context";
 
-export const MainPage = (props: {context: AppContext}) => {
+export const MainPage = () => {
 
-    const {context} = props;
+    const { userId, token } = useContext(AuthContext);
+    const { getInventory } = useContext(InventoryContext)
+
+    useEffect(() => {
+        getInventory(userId, token);
+      }, [token])
 
     return (
         <PageSection>
             <Column>
                 <Column className="selectors">
-                    <IngredientSelectors 
-                        context={context}
-                    />
+                    <IngredientSelectors />
                 </Column>
-                <Recipes 
-                    selectedIngredients={context.selectedIngredients}
-                />
+                <Recipes />
             </Column>
         </PageSection>
     )

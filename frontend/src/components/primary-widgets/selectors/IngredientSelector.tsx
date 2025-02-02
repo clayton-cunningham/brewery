@@ -1,46 +1,31 @@
 import { Ingredient } from "../../../assets/resources";
-import { AppContext } from "../../../App";
 import "./Selectors.less"
 import { Column } from "../../generic/Column";
 import Button from "../../form-elements/Button";
-import { useForm } from "../../../shared/hooks/form-hook";
 import { Row } from "../../generic/Row";
+import { useContext } from "react";
+import { InventoryContext } from "../../../shared/context/inventory-context";
+import { AuthContext } from "../../../shared/context/auth-context";
 
-export const IngredientSelector = (props: 
-    {ingredient: Ingredient, context: AppContext,
-        toggleIngredient: (source: Ingredient, active: boolean) => void
-        saveHandler: (ingredientId: number, count: number) => void,
-        initCount?: number | undefined
-    }) => {
+export const IngredientSelector = (props: {ingredient: Ingredient }) => {
 
-    const {ingredient, context, toggleIngredient, saveHandler, initCount} = props;
+    const { userId, token } = useContext(AuthContext)
+    const { inventoryUpdateIngredient } = useContext(InventoryContext)
 
-    const [formState, inputHandler] = useForm(
-        {
-            count: {
-                value: initCount ?? 0,
-                isValid: false
-            },
-        },
-        false
-    );
+    const {ingredient} = props;
 
-    var ingredientState = context.selectedIngredients.find(i => i.name == ingredient.name);
-
-    const saveChange = (value: number) => {
-        toggleIngredient(ingredient, value > 0);
-        inputHandler("count", value, true);
-        saveHandler(ingredient.key, value);
+    const saveChange = async (value: number) => {
+        await inventoryUpdateIngredient(ingredient.key, value, userId!, token!);
     };
 
-    const changeHandler = (event: {target: {value: any}}) => { saveChange(event?.target?.value) };
-    const decrementHandler = () => { saveChange(parseInt(formState.inputs?.count?.value) - 1) };
-    const incrementHandler = () => { saveChange(parseInt(formState.inputs?.count?.value) + 1) };
+    const changeHandler = async (event: {target: {value: any}}) => { await saveChange(parseInt(event?.target?.value)) };
+    const decrementHandler = async () => { await saveChange((ingredient.count ?? 0) - 1) };
+    const incrementHandler = async () => { await saveChange((ingredient.count ?? 0) + 1) };
 
     return (
         <Column
             key={ingredient.key + "_ingredient_selector"} 
-            className={"ingredient-selector " + (ingredientState?.active ? "can-use" : "cant-use")}
+            className={"ingredient-selector " + (ingredient?.active ? "can-use" : "cant-use")}
         >
             <Row>{/* <div> onClick={() => mainAction(ingredient)}> */}
                 <div className="main-icon">
@@ -60,7 +45,7 @@ export const IngredientSelector = (props:
                         id="count"
                         onChange={changeHandler}
                         type="number"
-                        value={formState.inputs?.count?.value}
+                        value={ingredient.count ?? 0}
                         className="ingredient-selector-number-input"
                     />
                     <Button

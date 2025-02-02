@@ -13,17 +13,19 @@ export const RecipeOptions = (props: {recipes: Recipe[], title: string, titleIng
     const getIngredients = (recipe: Recipe) => {
 
         var currIngredients: any[] = [];
-        ingredients.forEach(ingredient => {
-            var iCount = recipe[ingredient.name as keyof typeof recipe];
+        recipe.ingredients.forEach(ingredient => {
+            var ingredientDetails = ingredients.find(i => i.key == ingredient.key);
+            if (ingredientDetails == null) throw new Error("Ingredient not found!");
+            var iCount = ingredient.count;
 
-            if (iCount != undefined && iCount != "0") {
+            if (iCount != undefined && iCount != 0) {
                 currIngredients.push(
-                    <Row key={ingredient.name + "_ingredient-count"} className="ingredient-display">
+                    <Row key={ingredientDetails.name + "_ingredient-count"} className="ingredient-display">
                         {possibleIngredients.filter(i => i.key == ingredient.key).length == 0 && (
                             <Pill className="red missing-ingredient-text"/>
                         )}
                         <p className="ingredient-count">{iCount}</p>
-                        <img className="img-xs" src={ingredient.uri} />
+                        <img className="img-xs" src={ingredientDetails.uri} />
                     </Row>
                 );
             }
@@ -52,10 +54,10 @@ export const RecipeOptions = (props: {recipes: Recipe[], title: string, titleIng
                     >
                         <Row>
                             <div>
-                                <img className="img-m" src={"./recipes/" + recipe.Recipe.toLowerCase().split(" ").join("") + ".png"} />
+                                <img className="img-m" src={"./recipes/" + recipe.uri} />
                             </div>
                         </Row>
-                        <p className="recipe-name">{recipe.Recipe}</p>
+                        <p className="recipe-name">{recipe.name}</p>
                         <Row className="recipe-ingredient-list">
                             {getIngredients(recipe)}
                         </Row>
